@@ -87,7 +87,7 @@ namespace ChatBird
             try
             {
                 System.IO.StreamWriter file = File.AppendText(path);
-                if (pcname) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " присоединился к беседе", key));
+                if ((pcname) && (callsign != System.Net.Dns.GetHostName())) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " присоединился к беседе", key));
                 else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + " присоединился к беседе", key));
                 file.Close();
                 msgBox.Text = "";
@@ -113,7 +113,7 @@ namespace ChatBird
                 try
                 {
                     System.IO.StreamWriter file = File.AppendText(path);
-                    if (pcname) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " покинул беседу", key));
+                    if ((pcname) && (callsign != System.Net.Dns.GetHostName())) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " покинул беседу", key));
                     else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + " покинул беседу", key));
                     file.Close();
                     callsign = "";
@@ -156,7 +156,7 @@ namespace ChatBird
                     try
                     {
                         System.IO.StreamWriter file = File.AppendText(path);
-                        if (pcname) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text, key));
+                        if ((pcname) && (callsign != System.Net.Dns.GetHostName())) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text, key));
                         else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + ": " + msgBox.Text, key));
                         file.Close();
                         msgBox.Text = "";
@@ -181,7 +181,7 @@ namespace ChatBird
                 try
                 {
                     System.IO.StreamWriter file = File.AppendText(path);
-                    if (pcname) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text, key));
+                    if ((pcname) && (callsign != System.Net.Dns.GetHostName())) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text, key));
                     else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + ": " + msgBox.Text, key));
                     file.Close();
                     msgBox.Text = "";
