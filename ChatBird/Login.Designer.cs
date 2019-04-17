@@ -42,7 +42,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(210, 32);
             this.label1.TabIndex = 0;
-            this.label1.Text = "ChatBird v1.4";
+            this.label1.Text = "ChatBird";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2

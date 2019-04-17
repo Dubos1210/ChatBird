@@ -14,6 +14,7 @@ namespace ChatBird
         public LoginForm()
         {
             InitializeComponent();
+            label1.Text = Properties.Settings.Default.title + " " + Properties.Settings.Default.version;
         }
 
         private void loginBtn_Click(object sender, EventArgs e)

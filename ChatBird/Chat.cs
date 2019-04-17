@@ -17,16 +17,41 @@ namespace ChatBird
         public string path;
         public bool baloon = false;
         public bool pcname = false;
+        public byte key = 0xFF;
+        public string temp;
+
+        public string StringXOR(string t, byte k) {
+            string t1 = "";
+            for (int i = 0; i < t.Length; i++)
+            {
+                char ch = (char)(t[i] ^ (char) k);
+                t1 += ch;
+            }
+            return t1;
+        }
 
         public Chat(string callsgn)
         {
             InitializeComponent();
+
+            label1.Text = Properties.Settings.Default.title;
 
             Thread.Sleep(500);        
 
             try
             {
                 System.IO.StreamReader file = new System.IO.StreamReader(@"settings");
+                temp = file.ReadLine();
+                if (temp.Length > 0)
+                {
+                    int sum = 0;
+                    for (int i = 0; i < temp.Length; i++)
+                    {
+                        sum += temp[i];
+                    }
+                    sum /= temp.Length;
+                    key = (byte) sum;
+                }
                 path = file.ReadLine();
                 if (file.ReadLine()[0] == '1') baloon = true;
                 if (file.ReadLine()[0] == '1') pcname = true;
@@ -62,8 +87,8 @@ namespace ChatBird
             try
             {
                 System.IO.StreamWriter file = File.AppendText(path);
-                if (pcname) file.WriteLine("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " присоединился к беседе");
-                else file.WriteLine("[" + DateTime.Now.ToString() + "] " + callsign + " присоединился к беседе");
+                if (pcname) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " присоединился к беседе", key));
+                else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + " присоединился к беседе", key));
                 file.Close();
                 msgBox.Text = "";
             }
@@ -88,8 +113,8 @@ namespace ChatBird
                 try
                 {
                     System.IO.StreamWriter file = File.AppendText(path);
-                    if (pcname) file.WriteLine("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " покинул беседу");
-                    else file.WriteLine("[" + DateTime.Now.ToString() + "] " + callsign + " покинул беседу");
+                    if (pcname) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " покинул беседу", key));
+                    else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + " покинул беседу", key));
                     file.Close();
                     callsign = "";
                 }
@@ -131,8 +156,8 @@ namespace ChatBird
                     try
                     {
                         System.IO.StreamWriter file = File.AppendText(path);
-                        if (pcname) file.WriteLine("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text);
-                        else file.WriteLine("[" + DateTime.Now.ToString() + "] " + callsign + ": " + msgBox.Text);
+                        if (pcname) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text, key));
+                        else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + ": " + msgBox.Text, key));
                         file.Close();
                         msgBox.Text = "";
                     }
@@ -156,8 +181,8 @@ namespace ChatBird
                 try
                 {
                     System.IO.StreamWriter file = File.AppendText(path);
-                    if (pcname) file.WriteLine("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text);
-                    else file.WriteLine("[" + DateTime.Now.ToString() + "] " + callsign + ": " + msgBox.Text);
+                    if (pcname) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text, key));
+                    else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + ": " + msgBox.Text, key));
                     file.Close();
                     msgBox.Text = "";
                 }
@@ -186,20 +211,21 @@ namespace ChatBird
             
             try
             {
-
-                /*file = new System.IO.FileInfo(path);
-                size = file.Length;*/
-
                 chatBox.Invoke((MethodInvoker)delegate
                 {
                     chatBox.Clear();
                 });
-                System.IO.StreamReader file = new System.IO.StreamReader(path);
-                chatBox.Invoke((MethodInvoker)delegate
+                System.IO.StreamReader file = new System.IO.StreamReader(path);            
+                temp = file.ReadLine();
+                while (temp != null)
                 {
-                    chatBox.AppendText(file.ReadToEnd());
-                    chatBox.ScrollToCaret();
-                });
+                    chatBox.Invoke((MethodInvoker)delegate
+                    {
+                        chatBox.AppendText(StringXOR(temp, key) + "\r\n");
+                        chatBox.ScrollToCaret();
+                    });
+                    temp = file.ReadLine();
+                }
                 file.Close();
             }
             catch (Exception ex)
@@ -216,20 +242,30 @@ namespace ChatBird
             {
                 string temp = chatBox.Lines[chatBox.Lines.Length - 2];
                 temp = temp.Substring(temp.IndexOf("]") + 2);
-                if (temp.IndexOf(":") > 0) {
-                    if (temp.Substring(0, temp.IndexOf(":")) != callsign)
-                    {
-                        notifyIcon.ShowBalloonTip(500, "Сообщение", temp, ToolTipIcon.Info);
-                    }
-                }
-                else if (temp.IndexOf(" ") > 0)
+                if (temp.IndexOf("@") >= 0)
                 {
-                    if (temp.Substring(0, temp.IndexOf(" ")) != callsign)
+                    if (temp.Substring(0, temp.IndexOf("@")) != callsign)
                     {
                         notifyIcon.ShowBalloonTip(500, "Сообщение", temp, ToolTipIcon.Info);
                     }
                 }
-                
+                else
+                {
+                    if (temp.IndexOf(":") > 0)
+                    {
+                        if (temp.Substring(0, temp.IndexOf(":")) != callsign)
+                        {
+                            notifyIcon.ShowBalloonTip(500, "Сообщение", temp, ToolTipIcon.Info);
+                        }
+                    }
+                    else if (temp.IndexOf(" ") > 0)
+                    {
+                        if (temp.Substring(0, temp.IndexOf(" ")) != callsign)
+                        {
+                            notifyIcon.ShowBalloonTip(500, "Сообщение", temp, ToolTipIcon.Info);
+                        }
+                    }
+                }
             }
         }
 

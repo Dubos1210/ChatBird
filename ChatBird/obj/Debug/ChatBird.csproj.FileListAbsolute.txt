@@ -8,3 +8,4 @@ D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.csproj.CoreCompileInputs.cache
 D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.exe
 D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.pdb
 D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.Chat.resources
+D:\_PROJECTS\ChatBird\ChatBird\bin\Debug\ChatBird.exe.config

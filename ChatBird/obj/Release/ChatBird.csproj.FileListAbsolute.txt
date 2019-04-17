@@ -8,3 +8,4 @@ D:\_PROJECTS\ChatBird\ChatBird\obj\Release\ChatBird.csproj.GenerateResource.cach
 D:\_PROJECTS\ChatBird\ChatBird\obj\Release\ChatBird.csproj.CoreCompileInputs.cache
 D:\_PROJECTS\ChatBird\ChatBird\obj\Release\ChatBird.exe
 D:\_PROJECTS\ChatBird\ChatBird\obj\Release\ChatBird.pdb
+D:\_PROJECTS\ChatBird\ChatBird\bin\Release\ChatBird.exe.config
