@@ -1,0 +1,10 @@
+D:\_PROJECTS\ChatBird\ChatBird\bin\Debug\ChatBird.exe
+D:\_PROJECTS\ChatBird\ChatBird\bin\Debug\ChatBird.pdb
+D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.csprojAssemblyReference.cache
+D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.LoginForm.resources
+D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.Properties.Resources.resources
+D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.csproj.GenerateResource.cache
+D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.csproj.CoreCompileInputs.cache
+D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.exe
+D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.pdb
+D:\_PROJECTS\ChatBird\ChatBird\obj\Debug\ChatBird.Chat.resources
