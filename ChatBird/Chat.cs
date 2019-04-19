@@ -17,10 +17,10 @@ namespace ChatBird
         public string path;
         public bool baloon = false;
         public bool pcname = false;
-        public byte key = 0xFF;
+        public string key = "ChatBird";
         public string temp;
 
-        public string StringXOR(string t, byte k, bool decode)
+        public string StringXOR(string t, string k, bool decode)
         {
             string t1 = "";
             if (t.Length > 0)
@@ -28,7 +28,7 @@ namespace ChatBird
                 char ch;
                 for (int i = 0; i < t.Length; i++)
                 {
-                    ch = (char)(t[i] ^ (char) (key + (byte) i));
+                    ch = (char)(t[i] ^ (char) (key[i % key.Length] + (byte) i));
                     t1 += ch;
                 }
             }
@@ -48,18 +48,7 @@ namespace ChatBird
             try
             {
                 System.IO.StreamReader file = new System.IO.StreamReader(@"settings");
-                temp = file.ReadLine();
-                if (temp.Length > 0)
-                {
-                    int sum = 0;
-                    for (int i = 0; i < temp.Length; i++)
-                    {
-                        sum += temp[i];
-                    }
-                    sum /= temp.Length;
-                    //key = (byte) sum;
-                    key = 0xC5;
-                }
+                key = file.ReadLine();
                 path = file.ReadLine();
                 if (file.ReadLine()[0] == '1') baloon = true;
                 if (file.ReadLine()[0] == '1') pcname = true;

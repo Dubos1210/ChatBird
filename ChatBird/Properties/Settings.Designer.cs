@@ -34,7 +34,7 @@ namespace ChatBird.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("v3.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("v4.1")]
         public string version {
             get {
                 return ((string)(this["version"]));
