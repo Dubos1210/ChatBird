@@ -1,0 +1,6 @@
+D:\Dubos\Documents\Visual Studio 2017\ChatBirdBackup\ChatBirdBackup\bin\Debug\ChatBirdBackup.exe
+D:\Dubos\Documents\Visual Studio 2017\ChatBirdBackup\ChatBirdBackup\bin\Debug\ChatBirdBackup.pdb
+D:\Dubos\Documents\Visual Studio 2017\ChatBirdBackup\ChatBirdBackup\obj\Debug\ChatBirdBackup.csprojAssemblyReference.cache
+D:\Dubos\Documents\Visual Studio 2017\ChatBirdBackup\ChatBirdBackup\obj\Debug\ChatBirdBackup.csproj.CoreCompileInputs.cache
+D:\Dubos\Documents\Visual Studio 2017\ChatBirdBackup\ChatBirdBackup\obj\Debug\ChatBirdBackup.exe
+D:\Dubos\Documents\Visual Studio 2017\ChatBirdBackup\ChatBirdBackup\obj\Debug\ChatBirdBackup.pdb
