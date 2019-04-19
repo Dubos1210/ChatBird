@@ -43,8 +43,9 @@
             this.logoutBtn = new System.Windows.Forms.Button();
             this.chatBox = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.imagePanel = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.callsignItm = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).BeginInit();
             this.notifyIconMenu.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
@@ -71,11 +72,12 @@
             // 
             this.notifyIconMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuTitle,
+            this.callsignItm,
             this.toolStripSeparator,
             this.openChatItm,
             this.exitItm});
             this.notifyIconMenu.Name = "notifyIconMenu";
-            this.notifyIconMenu.Size = new System.Drawing.Size(195, 88);
+            this.notifyIconMenu.Size = new System.Drawing.Size(195, 136);
             // 
             // toolStripMenuTitle
             // 
@@ -199,15 +201,6 @@
             this.label1.Text = "ChatBird";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 35);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(25, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Info";
-            // 
             // imagePanel
             // 
             this.imagePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -220,6 +213,22 @@
             this.imagePanel.Name = "imagePanel";
             this.imagePanel.Size = new System.Drawing.Size(154, 225);
             this.imagePanel.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 35);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(25, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Info";
+            // 
+            // callsignItm
+            // 
+            this.callsignItm.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
+            this.callsignItm.Name = "callsignItm";
+            this.callsignItm.Size = new System.Drawing.Size(194, 26);
+            this.callsignItm.Text = "Позывной";
             // 
             // Chat
             // 
@@ -257,5 +266,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuTitle;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.Panel imagePanel;
+        private System.Windows.Forms.ToolStripMenuItem callsignItm;
     }
 }

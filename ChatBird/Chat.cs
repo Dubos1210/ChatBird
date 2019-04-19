@@ -20,15 +20,21 @@ namespace ChatBird
         public byte key = 0xFF;
         public string temp;
 
-        public string StringXOR(string t, byte k) {
+        public string StringXOR(string t, byte k, bool decode)
+        {
             string t1 = "";
-            for (int i = 0; i < t.Length; i++)
+            if (t.Length > 0)
             {
-                char ch = (char)(t[i] ^ (char) k);
-                t1 += ch;
+                char ch;
+                for (int i = 0; i < t.Length; i++)
+                {
+                    ch = (char)(t[i] ^ (char) (key + (byte) i));
+                    t1 += ch;
+                }
             }
             return t1;
         }
+
 
         public Chat(string callsgn)
         {
@@ -36,8 +42,9 @@ namespace ChatBird
 
             label1.Text = Properties.Settings.Default.title;
 
-            Thread.Sleep(500);        
+            Thread.Sleep(500);
 
+            //Получаем настройки
             try
             {
                 System.IO.StreamReader file = new System.IO.StreamReader(@"settings");
@@ -50,7 +57,8 @@ namespace ChatBird
                         sum += temp[i];
                     }
                     sum /= temp.Length;
-                    key = (byte) sum;
+                    //key = (byte) sum;
+                    key = 0xC5;
                 }
                 path = file.ReadLine();
                 if (file.ReadLine()[0] == '1') baloon = true;
@@ -66,12 +74,9 @@ namespace ChatBird
             if (callsgn != "") callsign = callsgn;
             else callsign = System.Net.Dns.GetHostName();
 
-            label2.Text = "Ваш позывной: " + callsign + "\n"
-                           + "Имя ПК: " + System.Net.Dns.GetHostName() + "\n"
-                           + "Поcледнее обновление чата: " + DateTime.Now.ToString() + "\n" + "\n"
-                           + "Не забудьте выйти из системы и завершить работу утилиты!" + "\n" + "\n"
-                           + "А кому теперь легко?";
+            notifyIconMenu.Items["callsignItm"].Text = callsign;
 
+            //Настраиваем Watcher
             try
             {
                 string abspath = Environment.CurrentDirectory + "\\" + path;
@@ -84,11 +89,14 @@ namespace ChatBird
                 chatBox.ScrollToCaret();
             }
 
+            //Пишем "Присоединился"
             try
             {
                 System.IO.StreamWriter file = File.AppendText(path);
-                if ((pcname) && (callsign != System.Net.Dns.GetHostName())) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " присоединился к беседе", key));
-                else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + " присоединился к беседе", key));
+                string data = "";
+                if ((pcname) && (callsign != System.Net.Dns.GetHostName())) data = "[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName();
+                else data = "[" + DateTime.Now.ToString() + "] " + callsign + " присоединился к беседе";
+                file.WriteLine(StringXOR(data, key, false));
                 file.Close();
                 msgBox.Text = "";
             }
@@ -96,6 +104,7 @@ namespace ChatBird
             {
                 chatBox.AppendText("Ошибка: " + ex.Message + "\n");
                 chatBox.ScrollToCaret();
+            
             }
         }
 
@@ -113,8 +122,8 @@ namespace ChatBird
                 try
                 {
                     System.IO.StreamWriter file = File.AppendText(path);
-                    if ((pcname) && (callsign != System.Net.Dns.GetHostName())) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " покинул беседу", key));
-                    else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + " покинул беседу", key));
+                    if ((pcname) && (callsign != System.Net.Dns.GetHostName())) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " покинул беседу", key, false));
+                    else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + " покинул беседу", key, false));
                     file.Close();
                     callsign = "";
                 }
@@ -143,7 +152,7 @@ namespace ChatBird
             {
                 this.Visible = false;
                 this.ShowInTaskbar = false;
-                notifyIcon.ShowBalloonTip(500, "ChatBird", "Программа все еще работает в фоновом режиме", ToolTipIcon.Warning);
+                notifyIcon.ShowBalloonTip(500, Properties.Settings.Default.title + " " + Properties.Settings.Default.version, "Программа все еще работает в фоновом режиме", ToolTipIcon.Warning);
             }
         }
 
@@ -156,8 +165,10 @@ namespace ChatBird
                     try
                     {
                         System.IO.StreamWriter file = File.AppendText(path);
-                        if ((pcname) && (callsign != System.Net.Dns.GetHostName())) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text, key));
-                        else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + ": " + msgBox.Text, key));
+                        string data = "";
+                        if ((pcname) && (callsign != System.Net.Dns.GetHostName())) data = "[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text;
+                        else data = "[" + DateTime.Now.ToString() + "] " + callsign + ": " + msgBox.Text;
+                        file.WriteLine(StringXOR(data, key, false));
                         file.Close();
                         msgBox.Text = "";
                     }
@@ -181,8 +192,10 @@ namespace ChatBird
                 try
                 {
                     System.IO.StreamWriter file = File.AppendText(path);
-                    if ((pcname) && (callsign != System.Net.Dns.GetHostName())) file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text, key));
-                    else file.WriteLine(StringXOR("[" + DateTime.Now.ToString() + "] " + callsign + ": " + msgBox.Text, key));
+                    string data = "";
+                    if ((pcname) && (callsign != System.Net.Dns.GetHostName())) data = "[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + ": " + msgBox.Text;
+                    else data = "[" + DateTime.Now.ToString() + "] " + callsign + ": " + msgBox.Text;
+                    file.WriteLine(StringXOR(data, key, false));
                     file.Close();
                     msgBox.Text = "";
                 }
@@ -221,7 +234,7 @@ namespace ChatBird
                 {
                     chatBox.Invoke((MethodInvoker)delegate
                     {
-                        chatBox.AppendText(StringXOR(temp, key) + "\r\n");
+                        chatBox.AppendText(StringXOR(temp, key, true) + "\r\n");
                         chatBox.ScrollToCaret();
                     });
                     temp = file.ReadLine();
@@ -233,7 +246,6 @@ namespace ChatBird
                 chatBox.Invoke((MethodInvoker)delegate
                 {
                     chatBox.AppendText("Ошибка: " + ex.Message + "\n");
-                    chatBox.AppendText("Попробуйте повторить отправку сообщения" + "\n");
                     chatBox.ScrollToCaret();
                 });
             }
