@@ -65,6 +65,51 @@ namespace ChatBird
 
             notifyIconMenu.Items["callsignItm"].Text = callsign;
 
+            label2.Text = "Ваш позывной: " + callsign + "\n"
+                           + "Имя ПК: " + System.Net.Dns.GetHostName() + "\n"
+                           + "Поcледнее обновление чата: " + DateTime.Now.ToString() + "\n" + "\n"
+                           + "Не забудьте выйти из системы и завершить работу утилиты!" + "\n" + "\n"
+                           + "А кому теперь легко?";
+
+            //Пишем "Присоединился"
+            try
+            {
+                System.IO.StreamWriter file = File.AppendText(path);
+                string data = "";
+                if ((pcname) && (callsign != System.Net.Dns.GetHostName())) data = "[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName() + " присоединился к беседе";
+                else data = "[" + DateTime.Now.ToString() + "] " + callsign + " присоединился к беседе";
+                file.WriteLine(StringXOR(data, key, false));
+                file.Close();
+                msgBox.Text = "";
+            }
+            catch (Exception ex)
+            {
+                chatBox.AppendText("Ошибка: " + ex.Message + "\n");
+                chatBox.ScrollToCaret();
+            
+            }
+
+            try
+            {
+                chatBox.Clear();
+                System.IO.StreamReader file = new System.IO.StreamReader(path);
+                temp = file.ReadLine();
+
+                while (temp != null)
+                {
+                    chatBox.AppendText(StringXOR(temp, key, true) + "\r\n");
+                    chatBox.ScrollToCaret();
+
+                    temp = file.ReadLine();
+                }
+                file.Close();
+            }
+            catch (Exception ex)
+            {
+                chatBox.AppendText("Ошибка: " + ex.Message + "\n");
+                chatBox.ScrollToCaret();
+            }
+
             //Настраиваем Watcher
             try
             {
@@ -76,24 +121,6 @@ namespace ChatBird
             {
                 chatBox.AppendText("Ошибка: " + ex.Message + "\n");
                 chatBox.ScrollToCaret();
-            }
-
-            //Пишем "Присоединился"
-            try
-            {
-                System.IO.StreamWriter file = File.AppendText(path);
-                string data = "";
-                if ((pcname) && (callsign != System.Net.Dns.GetHostName())) data = "[" + DateTime.Now.ToString() + "] " + callsign + "@" + System.Net.Dns.GetHostName();
-                else data = "[" + DateTime.Now.ToString() + "] " + callsign + " присоединился к беседе";
-                file.WriteLine(StringXOR(data, key, false));
-                file.Close();
-                msgBox.Text = "";
-            }
-            catch (Exception ex)
-            {
-                chatBox.AppendText("Ошибка: " + ex.Message + "\n");
-                chatBox.ScrollToCaret();
-            
             }
         }
 
@@ -213,21 +240,25 @@ namespace ChatBird
             
             try
             {
-                chatBox.Invoke((MethodInvoker)delegate
-                {
-                    chatBox.Clear();
-                });
                 System.IO.StreamReader file = new System.IO.StreamReader(path);            
                 temp = file.ReadLine();
+
+                string filedata = "";
+
                 while (temp != null)
                 {
-                    chatBox.Invoke((MethodInvoker)delegate
-                    {
-                        chatBox.AppendText(StringXOR(temp, key, true) + "\r\n");
-                        chatBox.ScrollToCaret();
-                    });
+                    filedata += StringXOR(temp, key, true) + "\r\n";
                     temp = file.ReadLine();
                 }
+                chatBox.Invoke((MethodInvoker)delegate
+                {
+                    //chatBox.Clear();
+                    chatBox.Text = filedata;
+                    //chatBox.AppendText(filedata);
+                    chatBox.SelectionStart = chatBox.Text.Length;
+                    chatBox.ScrollToCaret();
+                });
+                filedata = null;
                 file.Close();
             }
             catch (Exception ex)

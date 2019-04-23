@@ -34,6 +34,7 @@
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.notifyIconMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuTitle = new System.Windows.Forms.ToolStripMenuItem();
+            this.callsignItm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.openChatItm = new System.Windows.Forms.ToolStripMenuItem();
             this.exitItm = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,7 +46,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.imagePanel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.callsignItm = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).BeginInit();
             this.notifyIconMenu.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
@@ -77,7 +77,7 @@
             this.openChatItm,
             this.exitItm});
             this.notifyIconMenu.Name = "notifyIconMenu";
-            this.notifyIconMenu.Size = new System.Drawing.Size(195, 136);
+            this.notifyIconMenu.Size = new System.Drawing.Size(195, 114);
             // 
             // toolStripMenuTitle
             // 
@@ -86,6 +86,13 @@
             this.toolStripMenuTitle.Size = new System.Drawing.Size(194, 26);
             this.toolStripMenuTitle.Text = "ChatBird";
             this.toolStripMenuTitle.Click += new System.EventHandler(this.toolStripMenuTitle_Click);
+            // 
+            // callsignItm
+            // 
+            this.callsignItm.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
+            this.callsignItm.Name = "callsignItm";
+            this.callsignItm.Size = new System.Drawing.Size(194, 26);
+            this.callsignItm.Text = "Позывной";
             // 
             // toolStripSeparator
             // 
@@ -112,9 +119,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel.ColumnCount = 3;
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel.Controls.Add(this.msgBox, 1, 3);
             this.tableLayoutPanel.Controls.Add(this.sendBtn, 2, 3);
             this.tableLayoutPanel.Controls.Add(this.logoutBtn, 0, 3);
@@ -137,9 +144,9 @@
             this.msgBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.msgBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.msgBox.Location = new System.Drawing.Point(163, 423);
+            this.msgBox.Location = new System.Drawing.Point(158, 423);
             this.msgBox.Name = "msgBox";
-            this.msgBox.Size = new System.Drawing.Size(554, 23);
+            this.msgBox.Size = new System.Drawing.Size(542, 23);
             this.msgBox.TabIndex = 0;
             this.msgBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.msgBox_KeyDown);
             // 
@@ -149,9 +156,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sendBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.sendBtn.Location = new System.Drawing.Point(723, 423);
+            this.sendBtn.Location = new System.Drawing.Point(706, 423);
             this.sendBtn.Name = "sendBtn";
-            this.sendBtn.Size = new System.Drawing.Size(74, 24);
+            this.sendBtn.Size = new System.Drawing.Size(91, 24);
             this.sendBtn.TabIndex = 1;
             this.sendBtn.Text = "Отправить";
             this.sendBtn.UseVisualStyleBackColor = true;
@@ -166,7 +173,7 @@
             this.logoutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.logoutBtn.Location = new System.Drawing.Point(3, 423);
             this.logoutBtn.Name = "logoutBtn";
-            this.logoutBtn.Size = new System.Drawing.Size(154, 24);
+            this.logoutBtn.Size = new System.Drawing.Size(149, 24);
             this.logoutBtn.TabIndex = 2;
             this.logoutBtn.Text = "Выход из системы";
             this.logoutBtn.UseVisualStyleBackColor = false;
@@ -180,11 +187,11 @@
             this.chatBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.tableLayoutPanel.SetColumnSpan(this.chatBox, 2);
             this.chatBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chatBox.Location = new System.Drawing.Point(163, 3);
+            this.chatBox.Location = new System.Drawing.Point(158, 3);
             this.chatBox.Name = "chatBox";
             this.chatBox.ReadOnly = true;
             this.tableLayoutPanel.SetRowSpan(this.chatBox, 3);
-            this.chatBox.Size = new System.Drawing.Size(634, 414);
+            this.chatBox.Size = new System.Drawing.Size(639, 414);
             this.chatBox.TabIndex = 3;
             this.chatBox.Text = "";
             // 
@@ -196,7 +203,7 @@
             this.label1.Font = new System.Drawing.Font("Arial", 23F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(154, 35);
+            this.label1.Size = new System.Drawing.Size(149, 35);
             this.label1.TabIndex = 4;
             this.label1.Text = "ChatBird";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -211,7 +218,7 @@
             this.imagePanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.imagePanel.Location = new System.Drawing.Point(3, 192);
             this.imagePanel.Name = "imagePanel";
-            this.imagePanel.Size = new System.Drawing.Size(154, 225);
+            this.imagePanel.Size = new System.Drawing.Size(149, 225);
             this.imagePanel.TabIndex = 6;
             // 
             // label2
@@ -222,13 +229,6 @@
             this.label2.Size = new System.Drawing.Size(25, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Info";
-            // 
-            // callsignItm
-            // 
-            this.callsignItm.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
-            this.callsignItm.Name = "callsignItm";
-            this.callsignItm.Size = new System.Drawing.Size(194, 26);
-            this.callsignItm.Text = "Позывной";
             // 
             // Chat
             // 
