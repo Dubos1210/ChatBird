@@ -45,10 +45,13 @@
             this.chatBox = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.imagePanel = new System.Windows.Forms.Panel();
+            this.baloonBox = new System.Windows.Forms.CheckBox();
+            this.pcnameBox = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).BeginInit();
             this.notifyIconMenu.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
+            this.imagePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // fileSystemWatcher
@@ -216,10 +219,34 @@
             this.imagePanel.BackColor = System.Drawing.Color.Transparent;
             this.imagePanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imagePanel.BackgroundImage")));
             this.imagePanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.imagePanel.Controls.Add(this.baloonBox);
+            this.imagePanel.Controls.Add(this.pcnameBox);
             this.imagePanel.Location = new System.Drawing.Point(3, 192);
             this.imagePanel.Name = "imagePanel";
             this.imagePanel.Size = new System.Drawing.Size(149, 225);
             this.imagePanel.TabIndex = 6;
+            // 
+            // baloonBox
+            // 
+            this.baloonBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.baloonBox.AutoSize = true;
+            this.baloonBox.Location = new System.Drawing.Point(6, 205);
+            this.baloonBox.Name = "baloonBox";
+            this.baloonBox.Size = new System.Drawing.Size(96, 17);
+            this.baloonBox.TabIndex = 1;
+            this.baloonBox.Text = "Уведомления";
+            this.baloonBox.UseVisualStyleBackColor = true;
+            // 
+            // pcnameBox
+            // 
+            this.pcnameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pcnameBox.AutoSize = true;
+            this.pcnameBox.Location = new System.Drawing.Point(6, 182);
+            this.pcnameBox.Name = "pcnameBox";
+            this.pcnameBox.Size = new System.Drawing.Size(66, 17);
+            this.pcnameBox.TabIndex = 0;
+            this.pcnameBox.Text = "Имя ПК";
+            this.pcnameBox.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -245,6 +272,8 @@
             this.notifyIconMenu.ResumeLayout(false);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
+            this.imagePanel.ResumeLayout(false);
+            this.imagePanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -267,5 +296,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.Panel imagePanel;
         private System.Windows.Forms.ToolStripMenuItem callsignItm;
+        private System.Windows.Forms.CheckBox baloonBox;
+        private System.Windows.Forms.CheckBox pcnameBox;
     }
 }
